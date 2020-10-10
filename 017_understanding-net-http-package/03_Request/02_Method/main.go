@@ -9,8 +9,8 @@ import (
 
 type hotdog int
 
-func (m hotdog) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-	err := req.ParseForm()
+func (m hotdog) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -19,9 +19,10 @@ func (m hotdog) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		Method      string
 		Submissions url.Values
 	}{
-		req.Method,
-		req.Form,
+		r.Method,
+		r.Form,
 	}
+
 	tpl.ExecuteTemplate(w, "index.gohtml", data)
 }
 
@@ -35,3 +36,32 @@ func main() {
 	var d hotdog
 	http.ListenAndServe(":8080", d)
 }
+
+// type hotdog int
+
+// func (m hotdog) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+// 	err := req.ParseForm()
+// 	if err != nil {
+// 		log.Fatalln(err)
+// 	}
+
+// 	data := struct {
+// 		Method      string
+// 		Submissions url.Values
+// 	}{
+// 		req.Method,
+// 		req.Form,
+// 	}
+// 	tpl.ExecuteTemplate(w, "index.gohtml", data)
+// }
+
+// var tpl *template.Template
+
+// func init() {
+// 	tpl = template.Must(template.ParseFiles("index.gohtml"))
+// }
+
+// func main() {
+// 	var d hotdog
+// 	http.ListenAndServe(":8080", d)
+// }

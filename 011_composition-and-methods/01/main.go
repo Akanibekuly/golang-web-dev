@@ -23,7 +23,14 @@ func main() {
 		Age:  42,
 	}
 
-	err := tpl.Execute(os.Stdout, p1)
+	p2 := person{
+		Name: "Akzhol Kanybekuly",
+		Age:  28,
+	}
+
+	arr := []person{p1, p2}
+
+	err := tpl.Execute(os.Stdout, arr)
 	if err != nil {
 		log.Fatalln(err)
 	}

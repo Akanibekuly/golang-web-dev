@@ -15,6 +15,12 @@
 {{ft .Name}}
 {{end}}
 
+{{range .Transport}}
+{{uc .Manufacturer}}
+{{uc .Model}}
+{{.Doors}}
+{{end}}
+
 
 </body>
 </html>
